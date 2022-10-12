@@ -1,0 +1,8 @@
+<launch>
+    <param name="/path"  type="string" value="/home/wzr/dataset/rubbish/VID_20221010_195901.mp4"/>
+    <!-- <param name="/width"  type="int" value="1280"/>
+    <param name="/height"  type="int" value="720"/>
+    <param name="/fps"  type="int"  value="30"/> -->
+
+    <node pkg="vedio_pub" type="vedio_pub_node" name="vedio_pub_node" output="screen"/>
+</launch>

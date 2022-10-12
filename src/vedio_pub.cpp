@@ -24,17 +24,22 @@ int main(int argc , char ** argv)
     VideoCapture cap;
     
     std::string  path;
+    int width, height, fps;
     n.param<std::string>("/path",path,"/home/wzr/2022-05-11 21-47-05.mkv"); //视频路径
-    
+    n.param<int>("/width",width,1280); //分辨率
+    n.param<int>("/height",height,720); 
+    n.param<int>("/fps",fps,30); //帧率
+
+    cap.set(CV_CAP_PROP_FRAME_WIDTH,width);
+    cap.set(CV_CAP_PROP_FRAME_HEIGHT,height);
+    cap.set(CV_CAP_PROP_FPS, fps);
     cap.open(path);
-    cap.set(CV_CAP_PROP_FRAME_WIDTH,1980);
-    cap.set(CV_CAP_PROP_FRAME_HEIGHT,1080); //设置图像分辨率
-    cap.set(CV_CAP_PROP_FPS, 30); //读取频率
+
     Mat frame;
     ROS_INFO("SUCCESS, publishing images.");
 
     ros::Publisher vedio_pub = n.advertise<cv_bridge::CvImage>("/image_raw", 1000); //定义发布图像的topic
-    ros::Rate loop_rate(30);  //设置发布频率
+    ros::Rate loop_rate(fps);  //设置发布频率
 
     
 
